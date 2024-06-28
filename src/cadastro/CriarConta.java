@@ -3,9 +3,12 @@ package cadastro;
 import java.util.Scanner;
 
 import banco.Cliente;
+import banco.Conta;
+import banco.ContaCorrente;
+import banco.ContaPoupanca;
 
 public class CriarConta {
-  public void receberDados() {
+  public Conta cadastrarCliente(EnumTipoConta tipoConta) {
     Scanner scan = new Scanner(System.in);
 
     System.out.println("Digite seu nome: ");
@@ -16,6 +19,15 @@ public class CriarConta {
     Cliente cliente = new Cliente();
     cliente.setNome(nome);
     cliente.setCpf(cpf);
+
     scan.close();
+
+    if (tipoConta.equals(EnumTipoConta.CORRENTE)) {
+      ContaCorrente contaCorrente = new ContaCorrente(cliente);
+      return contaCorrente;
+    } else {
+      ContaPoupanca contaPoupanca = new ContaPoupanca(cliente);
+      return contaPoupanca;
+    }
   }
 }
